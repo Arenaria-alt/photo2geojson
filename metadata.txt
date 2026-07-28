@@ -1,0 +1,34 @@
+[general]
+name=Photo2GeoJSON
+qgisMinimumVersion=3.16
+description=Creates a GeoJSON point layer from geotagged photos with azimuth direction, map tips and DJI drone support
+version=1.7.0
+author=Andrzej Rodziewicz - Arenaria Sp. z o.o. & Claude (Anthropic)
+email=pracownia@arenaria.pl
+about=Scans a folder of JPEG photos with GPS EXIF data and creates a GeoJSON point layer.
+ Supports standard cameras (EXIF), DJI drones (Mavic, Phantom 4 Pro) and DJI RTK drones (Phantom 4 RTK).
+ Each point includes: filepath, filename, coordinates, altitude, azimuth (compass direction), flight direction,
+ GPS date, image date and source type. RTK images additionally store fix flag and position standard deviations.
+ The layer supports: opening photos directly from the map, thumbnail map tips on hover,
+ SVG arrow+camera symbology with azimuth rotation, and automatic labels from filename field.
+
+tracker=https://github.com/Arenaria-alt/photo2geojson/issues
+repository=https://github.com/Arenaria-alt/photo2geojson
+changelog=1.7.0 - Bilingual UI (English/Polish), auto-selected by QGIS locale
+	1.6.1 - Added gimbal_pitch field (DJI) so user can verify azimuth interpretation
+	1.6.0 - DJI RTK support (Phantom 4 RTK); fixed GpsLongtitude typo; added RTK precision fields and flight speed fields
+	1.5.0 - Automatic timestamp in layer name
+	1.4.0 - Labels fixed (updateFields before QML load); zoom to layer after generation
+	1.3.0 - DJI XMP support (Mavic/Phantom 4 Pro); GimbalYawDegree as azimuth; flight_yaw and source fields
+	1.2.0 - Added filename field (clean name without extension) for reliable labels
+	1.1.0 - Toolbar icon; labels switched to file_name()+regexp_replace (path-independent)
+	1.0.0 - Initial release
+
+tags=photo,gps,exif,geojson,camera,azimuth,dji,drone,uav,phantom,mavic,rtk
+
+homepage=https://arenaria.pl/narzedzia/photo2geojson/
+category=Vector
+icon=icons/camera.png
+experimental=False
+deprecated=False
+server=False
