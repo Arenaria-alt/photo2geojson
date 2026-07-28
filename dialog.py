@@ -9,7 +9,7 @@ from qgis.PyQt.QtWidgets import (
 from qgis.PyQt.QtCore import Qt, QThread, pyqtSignal
 from qgis.PyQt.QtGui import QFont
 
-from .exif_utils import scan_folder
+from .exif_utils import scan_folder, EXIFREAD_AVAILABLE
 from .layer_builder import save_and_load_layer
 from .i18n import tr
 
@@ -44,7 +44,7 @@ class Photo2GeoJSONDialog(QDialog):
     def _build_ui(self):
         self.setWindowTitle(tr('window_title'))
         self.setMinimumWidth(520)
-        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         root = QVBoxLayout(self)
         root.setSpacing(10)
@@ -98,7 +98,7 @@ class Photo2GeoJSONDialog(QDialog):
         root.addWidget(self.progress)
 
         self.lbl_status = QLabel('')
-        self.lbl_status.setAlignment(Qt.AlignCenter)
+        self.lbl_status.setAlignment(Qt.AlignmentFlag.AlignCenter)
         small = QFont()
         small.setPointSize(9)
         self.lbl_status.setFont(small)
@@ -137,6 +137,11 @@ class Photo2GeoJSONDialog(QDialog):
             self.le_output.setText(path)
 
     def _run(self):
+        if not EXIFREAD_AVAILABLE:
+            QMessageBox.warning(
+                self, tr('title_no_exifread'), tr('err_no_exifread'))
+            return
+
         folder = self.le_input.text().strip()
         out    = self.le_output.text().strip()
         name   = self.le_name.text().strip() or 'photos'

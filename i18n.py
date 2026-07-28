@@ -43,6 +43,17 @@ _STRINGS = {
     'err_loadlayer':  {'en': 'Failed to load the layer from the GeoJSON file.',
                        'pl': 'Nie udało się załadować warstwy z pliku GeoJSON.'},
     'status_error':   {'en': 'Error: {msg}',                          'pl': 'Błąd: {msg}'},
+    # missing external dependency
+    'title_no_exifread': {'en': 'Missing dependency: exifread',
+                          'pl': 'Brak zależności: exifread'},
+    'err_no_exifread': {'en': 'The Python package "exifread" is required but not installed.\n\n'
+                              'Install it into the QGIS Python environment and restart QGIS:\n'
+                              '  • Windows (OSGeo4W Shell):  pip install exifread\n'
+                              '  • Linux/macOS:  pip install exifread',
+                        'pl': 'Wymagana jest paczka Pythona „exifread", która nie jest zainstalowana.\n\n'
+                              'Zainstaluj ją w środowisku Pythona QGIS i uruchom QGIS ponownie:\n'
+                              '  • Windows (Powłoka OSGeo4W):  pip install exifread\n'
+                              '  • Linux/macOS:  pip install exifread'},
 }
 
 
@@ -69,6 +80,8 @@ def tr(key, **kwargs):
     if kwargs:
         try:
             text = text.format(**kwargs)
-        except Exception:
-            pass
+        except (KeyError, IndexError, ValueError):
+            # Placeholders didn't match the supplied kwargs;
+            # fall back to the raw (unformatted) template text.
+            return text
     return text

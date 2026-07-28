@@ -2,7 +2,7 @@
 name=Photo2GeoJSON
 qgisMinimumVersion=3.16
 description=Creates a GeoJSON point layer from geotagged photos with azimuth direction, map tips and DJI drone support
-version=1.7.0
+version=1.7.3
 author=Andrzej Rodziewicz - Arenaria Sp. z o.o. & Claude (Anthropic)
 email=pracownia@arenaria.pl
 about=Scans a folder of JPEG photos with GPS EXIF data and creates a GeoJSON point layer.
@@ -14,7 +14,10 @@ about=Scans a folder of JPEG photos with GPS EXIF data and creates a GeoJSON poi
 
 tracker=https://github.com/Arenaria-alt/photo2geojson/issues
 repository=https://github.com/Arenaria-alt/photo2geojson
-changelog=1.7.0 - Bilingual UI (English/Polish), auto-selected by QGIS locale
+changelog=1.7.3 - Graceful handling when the exifread dependency is missing (friendly bilingual message instead of a load crash)
+	1.7.2 - Qt6 / QGIS 4 compatibility: scoped Qt enums (AlignmentFlag, QSizePolicy.Policy); works on both Qt5 and Qt6
+	1.7.1 - Hardened exception handling (removed silent try/except/pass) to pass the QGIS security scan; no functional change
+	1.7.0 - Bilingual UI (English/Polish), auto-selected by QGIS locale
 	1.6.1 - Added gimbal_pitch field (DJI) so user can verify azimuth interpretation
 	1.6.0 - DJI RTK support (Phantom 4 RTK); fixed GpsLongtitude typo; added RTK precision fields and flight speed fields
 	1.5.0 - Automatic timestamp in layer name

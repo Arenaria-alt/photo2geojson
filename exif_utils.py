@@ -1,8 +1,18 @@
 # -*- coding: utf-8 -*-
 import os
 import re
-import exifread
 from fractions import Fraction
+
+# exifread is an external dependency (not shipped with QGIS). Import it
+# lazily so the plugin still loads if it is missing; the dialog checks
+# EXIFREAD_AVAILABLE and shows a friendly "please install" message instead
+# of crashing QGIS on load.
+try:
+    import exifread
+    EXIFREAD_AVAILABLE = True
+except ImportError:
+    exifread = None
+    EXIFREAD_AVAILABLE = False
 
 
 def _rational_to_float(value):
@@ -114,8 +124,10 @@ def _extract_xmp_dji(filepath):
         result['speed_y']     = _flt(_attr('FlightYSpeed'), 2)
         result['speed_z']     = _flt(_attr('FlightZSpeed'), 2)
 
-    except Exception:
-        pass
+    except (OSError, ValueError, TypeError, re.error):
+        # Unreadable file or malformed XMP block: leave DJI/RTK fields
+        # as None so the photo is still usable via standard EXIF.
+        return result
 
     return result
 
