@@ -49,12 +49,12 @@ Each point carries:
 
 ## Installation
 
-**From ZIP (now):**
+**From the QGIS Official Plugin Repository (recommended):** in QGIS open *Plugins → Manage and Install Plugins…*, search for **“Photo2GeoJSON”**, and click **Install**. The plugin is published in the official QGIS repository.
+
+**From ZIP (alternative):**
 1. Download the latest release ZIP.
 2. In QGIS: *Plugins → Manage and Install Plugins… → Install from ZIP* → select the file.
 3. Enable **Photo2GeoJSON**.
-
-**From the QGIS Official Plugin Repository:** _(planned — pending approval)_ search “Photo2GeoJSON” in the Plugin Manager.
 
 ## Usage
 
